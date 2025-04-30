@@ -22,13 +22,12 @@ class Blog(models.Model):
         verbose_name_plural = 'ブログ'
 
 class Price(models.Model):
-    service_name = models.CharField(max_length=100, verbose_name='サービス名')
-    description = models.TextField(verbose_name='説明')
+    drawing_size = models.CharField(max_length=100, verbose_name='図面サイズ', default='')
     price = models.IntegerField(verbose_name='料金')
-    note = models.TextField(blank=True, null=True, verbose_name='備考')
+    note = models.CharField(max_length=100, blank=True, null=True, verbose_name='備考')
     
     def __str__(self):
-        return self.service_name
+        return self.drawing_size
     
     class Meta:
         verbose_name = '料金'

@@ -1,0 +1,238 @@
+{% extends 'D_Freedom_site/base.html' %}
+{% load static %}
+
+{% block title %}D.Freedom - 管理者用見積書作成{% endblock %}
+
+{% block extra_head %}
+<style>
+    .formset-item {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+    }
+    .delete-row {
+        color: #dc3545;
+        cursor: pointer;
+    }
+    .add-row {
+        cursor: pointer;
+    }
+    .admin-badge {
+        background-color: #dc3545;
+        color: white;
+        font-size: 0.8rem;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-left: 10px;
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">見積書作成 <span class="admin-badge">管理者専用</span></h1>
+    <div>
+        <a href="{% url 'admin:index' %}" class="btn btn-outline-secondary">管理画面へ戻る</a>
+    </div>
+</div>
+
+<div class="alert alert-warning mb-4">
+    <p class="mb-0"><strong>注意:</strong> このページは管理者専用です。作成した見積書はすべてシステムに記録されます。</p>
+</div>
+
+<div class="alert alert-info mb-4">
+    <p class="mb-0">以下のフォームに必要事項を入力して、見積書を作成してください。項目は追加・削除が可能です。</p>
+</div>
+
+<form method="post" action="{% url 'D_Freedom_site:admin_create_estimate' %}">
+    {% csrf_token %}
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">クライアント情報</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_name.id_for_label }}" class="form-label">クライアント名 *</label>
+                    {{ estimate_form.client_name }}
+                    {% if estimate_form.client_name.errors %}
+                        <div class="text-danger">{{ estimate_form.client_name.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_tel.id_for_label }}" class="form-label">電話番号</label>
+                    {{ estimate_form.client_tel }}
+                    {% if estimate_form.client_tel.errors %}
+                        <div class="text-danger">{{ estimate_form.client_tel.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_email.id_for_label }}" class="form-label">メールアドレス</label>
+                    {{ estimate_form.client_email }}
+                    {% if estimate_form.client_email.errors %}
+                        <div class="text-danger">{{ estimate_form.client_email.errors }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_address.id_for_label }}" class="form-label">住所 *</label>
+                    {{ estimate_form.client_address }}
+                    {% if estimate_form.client_address.errors %}
+                        <div class="text-danger">{{ estimate_form.client_address.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">見積項目</h5>
+        </div>
+        <div class="card-body">
+            {{ formset.management_form }}
+            <div id="formset-container">
+                {% for form in formset %}
+                    <div class="formset-item">
+                        <div class="d-flex justify-content-end mb-2">
+                            <button type="button" class="btn btn-sm btn-outline-danger delete-row">
+                                <i class="fas fa-trash"></i> 削除
+                            </button>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label">項目名 *</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="text-danger">{{ form.name.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.description.id_for_label }}" class="form-label">詳細</label>
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="text-danger">{{ form.description.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.quantity.id_for_label }}" class="form-label">数量 *</label>
+                                {{ form.quantity }}
+                                {% if form.quantity.errors %}
+                                    <div class="text-danger">{{ form.quantity.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.unit_price.id_for_label }}" class="form-label">単価 (円) *</label>
+                                {{ form.unit_price }}
+                                {% if form.unit_price.errors %}
+                                    <div class="text-danger">{{ form.unit_price.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="{{ form.tax_rate.id_for_label }}" class="form-label">税率 (%) *</label>
+                                {{ form.tax_rate }}
+                                {% if form.tax_rate.errors %}
+                                    <div class="text-danger">{{ form.tax_rate.errors }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-primary" id="add-item">
+                    <i class="fas fa-plus"></i> 項目を追加
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">備考</h5>
+        </div>
+        <div class="card-body">
+            <label for="{{ estimate_form.notes.id_for_label }}" class="form-label">備考</label>
+            {{ estimate_form.notes }}
+            <small class="form-text text-muted">お支払い条件や納期、その他特記事項などがあれば記入してください。</small>
+        </div>
+    </div>
+    
+    <div class="d-flex justify-content-between mb-5">
+        <a href="{% url 'admin:index' %}" class="btn btn-outline-secondary">キャンセル</a>
+        <button type="submit" class="btn btn-primary btn-lg">見積書を作成する</button>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const formsetContainer = document.getElementById('formset-container');
+    const addButton = document.getElementById('add-item');
+    const forms = formsetContainer.getElementsByClassName('formset-item');
+    const managementForm = document.getElementById('id_items-TOTAL_FORMS');
+    
+    // 削除ボタンにイベントリスナーを追加
+    function addDeleteButtonListeners() {
+        const deleteButtons = document.querySelectorAll('.delete-row');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (forms.length > 1) {
+                    this.closest('.formset-item').remove();
+                    updateFormIndexes();
+                } else {
+                    alert('少なくとも1つの項目が必要です。');
+                }
+            });
+        });
+    }
+    
+    // フォームセットのインデックスを更新
+    function updateFormIndexes() {
+        const forms = formsetContainer.getElementsByClassName('formset-item');
+        managementForm.value = forms.length;
+        
+        for (let i = 0; i < forms.length; i++) {
+            const inputs = forms[i].querySelectorAll('input, textarea, select');
+            inputs.forEach(input => {
+                if (input.name) {
+                    input.name = input.name.replace(/items-\d+/, `items-${i}`);
+                    input.id = input.id.replace(/items-\d+/, `items-${i}`);
+                }
+            });
+        }
+    }
+    
+    // 項目追加ボタンのイベントリスナー
+    addButton.addEventListener('click', function() {
+        const lastForm = forms[forms.length - 1];
+        const newForm = lastForm.cloneNode(true);
+        
+        // フォームの内容をクリア
+        const inputs = newForm.querySelectorAll('input:not([type=hidden]), textarea, select');
+        inputs.forEach(input => {
+            input.value = '';
+        });
+        
+        formsetContainer.appendChild(newForm);
+        updateFormIndexes();
+        addDeleteButtonListeners();
+    });
+    
+    // 初期化時にイベントリスナーを追加
+    addDeleteButtonListeners();
+});
+</script>
+{% endblock %} 

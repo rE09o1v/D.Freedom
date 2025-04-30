@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{% block meta_description %}機械設計・CADモデリング専門のD.Freedom。AutoCAD・SolidWorksを使用した2D/3D図面作成と3Dプリンタによる試作品製作サービスを提供。製造業向け機械パーツ設計、アセンブリ設計、3Dプリント用データ作成まで対応。{% endblock %}">
+    <meta name="keywords" content="CAD,機械設計,2D図面,3D図面,SolidWorks,AutoCAD,3Dプリント,試作品製作,機械パーツ,アセンブリ設計">
+    <meta name="robots" content="index, follow">
+    <!-- Open Graph Protocol -->
+    <meta property="og:title" content="{% block og_title %}D.Freedom - 機械設計・CADモデリング専門{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}機械設計・CADモデリング専門のD.Freedom。AutoCAD・SolidWorksを使用した2D/3D図面作成と3Dプリンタによる試作品製作サービスを提供。{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ MEDIA_URL }}logo.png">
+    <meta property="og:site_name" content="D.Freedom">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{% block twitter_title %}D.Freedom - 機械設計・CADモデリング専門{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}機械設計・CADモデリング専門のD.Freedom。AutoCAD・SolidWorksを使用した2D/3D図面作成と3Dプリンタによる試作品製作サービスを提供。{% endblock %}">
+    <meta name="twitter:image" content="{{ request.scheme }}://{{ request.get_host }}{{ MEDIA_URL }}logo.png">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <title>{% block title %}D.Freedom - 機械設計・CADモデリング専門{% endblock %}</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- カスタムCSS -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/custom.css' %}?v={% now 'U' %}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="bg-dark text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <h1><a href="{% url 'D_Freedom_site:index' %}" class="text-decoration-none" aria-label="D.Freedom トップページへ"><img src="{{ MEDIA_URL }}logo.png" alt="D.Freedom - 機械設計・CADモデリング専門"></a></h1>
+                </div>
+                <div class="col-md-8">
+                    <div class="header-nav-container">
+                        <nav class="navbar">
+                            <button class="navbar-toggler" type="button" aria-label="メニュー">
+                                <span class="navbar-toggler-icon">≡</span>
+                            </button>
+                            <div class="navbar-collapse collapse" id="navbarNav">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'D_Freedom_site:index' %}">ホーム</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'D_Freedom_site:service' %}">サービス</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'D_Freedom_site:price' %}">料金</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'D_Freedom_site:blog_list' %}">ブログ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'D_Freedom_site:contact' %}">お問い合わせ</a>
+                                    </li>
+                                    {% if request.user.is_staff %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            管理メニュー
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{% url 'D_Freedom_site:admin_create_estimate' %}">見積書作成</a>
+                                            <a class="dropdown-item" href="{% url 'admin:index' %}">管理画面</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="{% url 'admin:logout' %}">ログアウト</a>
+                                        </div>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container py-4">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark text-white py-3 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <p>&copy; {% now "Y" %} D.Freedom All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 構造化データ - LocalBusiness -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "D.Freedom",
+        "description": "機械設計・CADモデリング専門のD.Freedom。AutoCAD・SolidWorksを使用した2D/3D図面作成と3Dプリンタによる試作品製作サービスを提供。",
+        "image": "{{ request.scheme }}://{{ request.get_host }}{{ MEDIA_URL }}logo.png",
+        "url": "{{ request.build_absolute_uri }}",
+        "telephone": "",
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "JP"
+        },
+        "priceRange": "$$",
+        "openingHours": "Mo-Fr 09:00-18:00",
+        "sameAs": [],
+        "serviceType": ["機械設計", "CADモデリング", "2D図面作成", "3D図面作成", "3Dプリント試作品製作"],
+        "makesOffer": [
+            {
+                "@type": "Offer",
+                "name": "CAD図面作成",
+                "description": "AutoCAD・SolidWorksを使用した2D/3D図面作成サービス"
+            },
+            {
+                "@type": "Offer",
+                "name": "3Dプリント試作品",
+                "description": "3Dプリンタによる試作品製作サービス"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Bootstrap JS とその依存関係 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <!-- カスタムJS -->
+    <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 

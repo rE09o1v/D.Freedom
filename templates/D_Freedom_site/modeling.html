@@ -1,0 +1,106 @@
+{% extends 'D_Freedom_site/base.html' %}
+
+{% block title %}D.Freedom - 図面作成{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">図面作成</h1>
+
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">CAD図面作成サービス</h5>
+                <p class="card-text">
+                    D.Freedomでは、CADによる機械パーツの2D&3D図面作成サービスを提供しています。
+                    機械部品、製品設計など、製造業向けの図面に対応しています。
+                </p>
+                <p class="card-text">
+                    以下は主な図面作成サービスです：
+                </p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item">機械部品の図面作成</li>
+                    <li class="list-group-item">アセンブリ設計</li>
+                    <li class="list-group-item">既存部品のデータ化</li>
+                    <li class="list-group-item">3Dプリント用データ作成</li>
+                </ul>
+                <a href="{% url 'D_Freedom_site:contact' %}" class="btn btn-primary">お問い合わせ</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">使用ソフトウェア</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">AutoCAD</li>
+                    <li class="list-group-item">SolidWorks</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="mt-5 mb-4">図面作成実績例</h2>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200?text=機械部品モデル" class="card-img-top" alt="機械部品モデル">
+            <div class="card-body">
+                <h5 class="card-title">機械部品モデル</h5>
+                <p class="card-text">精密機械部品の2D&3D図面作成</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200?text=アセンブリモデル" class="card-img-top" alt="アセンブリモデル">
+            <div class="card-body">
+                <h5 class="card-title">アセンブリモデル</h5>
+                <p class="card-text">複合機械構造のアセンブリ設計</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200?text=設計図面" class="card-img-top" alt="設計図面">
+            <div class="card-body">
+                <h5 class="card-title">設計図面</h5>
+                <p class="card-text">製造用技術図面の作成</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h2 class="card-title">図面作成の流れ</h2>
+        <div class="step-flow">
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 1</h4>
+                    <p>ヒアリング・仕様確認</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 2</h4>
+                    <p>概略設計・構想検討</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 3</h4>
+                    <p>詳細設計</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 4</h4>
+                    <p>図面化・データ納品</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

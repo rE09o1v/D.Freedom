@@ -1,0 +1,57 @@
+{% extends 'D_Freedom_site/base.html' %}
+
+{% block title %}D.Freedom - 機械設計・CADモデリングサービス内容 | AutoCAD・SolidWorks・3Dプリント{% endblock %}
+
+{% block meta_description %}D.Freedomの機械設計・CADモデリングサービスをご紹介。AutoCAD・SolidWorksを使用した2D/3D図面作成、機械部品設計、アセンブリ設計、3Dプリント用データ作成、3Dプリンタ試作品製作までワンストップで対応します。{% endblock %}
+
+{% block og_title %}D.Freedom - 機械設計・CADモデリングサービス内容 | AutoCAD・SolidWorks・3Dプリント{% endblock %}
+{% block og_description %}D.Freedomの機械設計・CADモデリングサービスをご紹介。AutoCAD・SolidWorksを使用した図面作成から3Dプリント試作品製作まで対応します。{% endblock %}
+
+{% block twitter_title %}D.Freedom - 機械設計・CADモデリングサービス内容 | AutoCAD・SolidWorks・3Dプリント{% endblock %}
+{% block twitter_description %}D.Freedomの機械設計・CADモデリングサービスをご紹介。AutoCAD・SolidWorksを使用した図面作成から3Dプリント試作品製作まで対応します。{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">機械設計・CADモデリングサービス</h1>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">図面作成</h2>
+                <p class="card-text">
+                    CADを用いた機械パーツの2Dまたは3D図面の作成を行います。
+                    2DはAutoCAD、3DはSolidWorksを使用し、機械部品設計、製品設計を提供します。
+                    製造業向けの図面作成サービスです。
+                </p>
+                <ul class="list-group list-group-flush mt-3">
+                    <li class="list-group-item">機械部品の図面作成</li>
+                    <li class="list-group-item">アセンブリ設計</li>
+                    <li class="list-group-item">既存部品のデータ化</li>
+                    <li class="list-group-item">3Dプリント用データ作成</li>
+                </ul>
+                <a href="{% url 'D_Freedom_site:drawing' %}" class="btn btn-primary mt-3">詳細を見る</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h2 class="card-title">3Dプリンタ試作品提供</h2>
+                <p class="card-text">
+                    3Dモデリングデータを元に、3Dプリンタによる試作品の製作を行います。
+                    設計段階での形状確認、プレゼンテーション用モデルなど、
+                    さまざまな用途に対応した試作品の提供が可能です。
+                </p>
+                <ul class="list-group list-group-flush mt-3">
+                    <li class="list-group-item">形状確認用モデル</li>
+                    <li class="list-group-item">プレゼンテーション用モデル</li>
+                    <li class="list-group-item">少量生産部品</li>
+                    <li class="list-group-item">　</li>
+                </ul>
+                <a href="{% url 'D_Freedom_site:printing' %}" class="btn btn-primary mt-3">詳細を見る</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

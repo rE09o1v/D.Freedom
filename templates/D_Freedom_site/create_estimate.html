@@ -1,0 +1,195 @@
+{% extends 'D_Freedom_site/base.html' %}
+{% load static %}
+
+{% block title %}D.Freedom - 見積書作成{% endblock %}
+
+{% block extra_head %}
+<style>
+    .formset-item {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: #f9f9f9;
+    }
+    .delete-row {
+        color: #dc3545;
+        cursor: pointer;
+    }
+    .add-row {
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">見積書作成</h1>
+
+<div class="alert alert-info mb-4">
+    <p>以下のフォームに必要事項を入力して、見積書を作成してください。</p>
+    <p>項目は追加・削除が可能です。ご希望のサービスや商品をカスタマイズできます。</p>
+</div>
+
+<form method="post" id="estimate-form">
+    {% csrf_token %}
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">お客様情報</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_name.id_for_label }}" class="form-label">お名前 *</label>
+                    {{ estimate_form.client_name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_email.id_for_label }}" class="form-label">メールアドレス *</label>
+                    {{ estimate_form.client_email }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_tel.id_for_label }}" class="form-label">電話番号</label>
+                    {{ estimate_form.client_tel }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="{{ estimate_form.client_address.id_for_label }}" class="form-label">住所 *</label>
+                    {{ estimate_form.client_address }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">見積項目</h5>
+        </div>
+        <div class="card-body">
+            {{ formset.management_form }}
+            <div id="formset-container">
+                {% for form in formset %}
+                    <div class="formset-item">
+                        <div class="text-end mb-2">
+                            <span class="delete-row badge bg-danger">削除</span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="{{ form.name.id_for_label }}" class="form-label">項目名 *</label>
+                                {{ form.name }}
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="{{ form.quantity.id_for_label }}" class="form-label">数量 *</label>
+                                {{ form.quantity }}
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="{{ form.unit_price.id_for_label }}" class="form-label">単価 (円) *</label>
+                                {{ form.unit_price }}
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="{{ form.tax_rate.id_for_label }}" class="form-label">税率 (%) *</label>
+                                {{ form.tax_rate }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="{{ form.description.id_for_label }}" class="form-label">詳細</label>
+                                {{ form.description }}
+                            </div>
+                        </div>
+                        {% for hidden in form.hidden_fields %}
+                            {{ hidden }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-center mt-3">
+                <button type="button" class="btn btn-outline-primary" id="add-item">
+                    <i class="fas fa-plus"></i> 項目を追加
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">備考</h5>
+        </div>
+        <div class="card-body">
+            <label for="{{ estimate_form.notes.id_for_label }}" class="form-label">備考</label>
+            {{ estimate_form.notes }}
+            <small class="form-text text-muted">お支払い条件や納期、その他特記事項などがあれば記入してください。</small>
+        </div>
+    </div>
+    
+    <div class="text-center mb-5">
+        <button type="submit" class="btn btn-primary btn-lg">見積書を作成する</button>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // フォームの要素にBootstrapのクラスを追加
+        const formElements = document.querySelectorAll('input, textarea, select');
+        formElements.forEach(el => {
+            if (!el.classList.contains('form-check-input')) {
+                el.classList.add('form-control');
+            }
+        });
+        
+        // フォームセットの管理
+        const container = document.getElementById('formset-container');
+        const addButton = document.getElementById('add-item');
+        const totalForms = document.getElementById('id_items-TOTAL_FORMS');
+        
+        // 行の削除
+        container.addEventListener('click', function(e) {
+            if (e.target.classList.contains('delete-row')) {
+                const formCount = document.querySelectorAll('.formset-item').length;
+                // 最低1行は残す
+                if (formCount > 1) {
+                    const formItem = e.target.closest('.formset-item');
+                    formItem.remove();
+                    totalForms.value = document.querySelectorAll('.formset-item').length;
+                } else {
+                    alert('少なくとも1つの項目が必要です。');
+                }
+            }
+        });
+        
+        // 行の追加
+        addButton.addEventListener('click', function() {
+            const formCount = document.querySelectorAll('.formset-item').length;
+            const newForm = document.querySelectorAll('.formset-item')[0].cloneNode(true);
+            
+            // フォーム要素のIDと名前を更新
+            const formRegex = new RegExp(`items-(\\d+)-`, 'g');
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `items-${formCount}-`);
+            
+            // 入力値をクリア
+            newForm.querySelectorAll('input, textarea').forEach(input => {
+                if (input.type !== 'hidden' || input.name.includes('id')) {
+                    input.value = '';
+                }
+                
+                // 数量と税率のデフォルト値を設定
+                if (input.name.includes('quantity')) {
+                    input.value = '1';
+                }
+                if (input.name.includes('tax_rate')) {
+                    input.value = '10.00';
+                }
+            });
+            
+            // 新しいフォームを追加
+            container.appendChild(newForm);
+            
+            // TOTAL_FORMSを更新
+            totalForms.value = document.querySelectorAll('.formset-item').length;
+        });
+    });
+</script>
+{% endblock %} 

@@ -1,0 +1,187 @@
+{% extends 'D_Freedom_site/base.html' %}
+
+{% block title %}D.Freedom - 3Dプリンタ試作品提供{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">3Dプリンタ試作品提供</h1>
+
+<div class="row">
+    <div class="col-md-8 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">3Dプリンタ試作サービス</h5>
+                <p class="card-text">
+                    D.Freedomでは、CADデータを元にした3Dプリンタによる試作品製作サービスを提供しています。
+                    開発段階での形状確認、機能検証、プレゼンテーション用モデルなど、さまざまな用途に対応した
+                    試作品を短納期でご提供いたします。
+                </p>
+                <p class="card-text">
+                    以下は主な3Dプリンタ試作サービスです：
+                </p>
+                <ul class="list-group list-group-flush mb-3">
+                    <li class="list-group-item">機能検証用試作品製作</li>
+                    <li class="list-group-item">形状確認用モデル製作</li>
+                    <li class="list-group-item">プレゼンテーション用モデル製作</li>
+                    <li class="list-group-item">少量生産部品製作</li>
+                    <li class="list-group-item">造形データ最適化</li>
+                </ul>
+                <a href="{% url 'D_Freedom_site:contact' %}" class="btn btn-primary">お問い合わせ</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">対応素材</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">PLA</li>
+                    <li class="list-group-item">ABS</li>
+                    <li class="list-group-item">PETG</li>
+                    <li class="list-group-item">TPU（フレキシブル）</li>
+                    <li class="list-group-item">ナイロン</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="mt-5 mb-4">3Dプリント試作例</h2>
+
+<div class="row">
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200?text=機能検証モデル" class="card-img-top" alt="機能検証モデル">
+            <div class="card-body">
+                <h5 class="card-title">機能検証モデル</h5>
+                <p class="card-text">機械部品の動作確認用試作品</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200?text=形状確認モデル" class="card-img-top" alt="形状確認モデル">
+            <div class="card-body">
+                <h5 class="card-title">形状確認モデル</h5>
+                <p class="card-text">デザイン検討用の外観モデル</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200?text=少量生産部品" class="card-img-top" alt="少量生産部品">
+            <div class="card-body">
+                <h5 class="card-title">少量生産部品</h5>
+                <p class="card-text">少量多品種の最終製品部品</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h2 class="card-title">3Dプリント試作の流れ</h2>
+        <div class="step-flow">
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 1</h4>
+                    <p>CADデータ受領・確認</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 2</h4>
+                    <p>造形データ最適化</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 3</h4>
+                    <p>3Dプリント出力</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-content">
+                    <h4>STEP 4</h4>
+                    <p>後処理・納品</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h2 class="card-title">よくある質問</h2>
+        <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+                <h3 class="accordion-header" id="heading1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                        どのようなCADデータに対応していますか？
+                    </button>
+                </h3>
+                <div id="collapse1" class="accordion-collapse collapse" aria-labelledby="heading1" data-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        SolidWorksのネイティブデータ(.sldprt, .sldasm)の他、STEP、IGS、STLなどの標準フォーマットに対応しています。
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h3 class="accordion-header" id="heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        納期はどのくらいですか？
+                    </button>
+                </h3>
+                <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="heading2" data-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        単純な形状の場合は最短3営業日、複雑な形状や後処理が必要な場合は5〜7営業日程度いただいております。
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h3 class="accordion-header" id="heading3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        最大どのくらいのサイズまで造形可能ですか？
+                    </button>
+                </h3>
+                <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="heading3" data-parent="#faqAccordion">
+                    <div class="accordion-body">
+                        標準的な造形サイズは200mm×200mm×200mmですが、分割造形と組み立てにより、それ以上のサイズにも対応可能です。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // アコーディオン機能
+        const accordionButtons = document.querySelectorAll('.accordion-button');
+        
+        accordionButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const target = document.querySelector(this.getAttribute('data-bs-target'));
+
+                // 他のアコーディオンを閉じる
+                document.querySelectorAll('.accordion-collapse.show').forEach(item => {
+                    if (item !== target) {
+                        item.classList.remove('show');
+                        const otherButton = document.querySelector(`[data-bs-target="#${item.id}"]`);
+                        if (otherButton) {
+                            otherButton.classList.add('collapsed');
+                            otherButton.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+
+                // 現在のアコーディオンを開閉
+                this.classList.toggle('collapsed');
+                const isExpanded = target.classList.toggle('show');
+                this.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+            });
+        });
+    });
+</script>
+{% endblock %}

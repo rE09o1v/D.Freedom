@@ -1,0 +1,158 @@
+{% extends 'D_Freedom_site/base.html' %}
+{% load static %}
+
+{% block title %}見積書 #{{ estimate.estimate_number }} | D.Freedom{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    {% if messages %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">見積書 #{{ estimate.estimate_number }}</h1>
+            
+            <div class="mb-4 d-flex justify-content-end">
+                <a href="{% url 'Dfreedom_site:download_estimate_pdf' estimate.pk %}" class="btn btn-primary me-2">
+                    <i class="fas fa-file-pdf"></i> PDFダウンロード
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <strong>クライアント情報</strong>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless mb-0">
+                        <tr>
+                            <th style="width: 35%;">クライアント名</th>
+                            <td>{{ estimate.client_name }}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 35%;">住所</th>
+                            <td>{{ estimate.client_address|linebreaks }}</td>
+                        </tr>
+                        {% if estimate.client_tel %}
+                        <tr>
+                            <th style="width: 35%;">TEL</th>
+                            <td>{{ estimate.client_tel }}</td>
+                        </tr>
+                        {% endif %}
+                        {% if estimate.client_email %}
+                        <tr>
+                            <th style="width: 35%;">メール</th>
+                            <td>{{ estimate.client_email }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <strong>見積情報</strong>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless mb-0">
+                        <tr>
+                            <th style="width: 35%;">見積番号</th>
+                            <td>{{ estimate.estimate_number }}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 35%;">発行日</th>
+                            <td>{{ estimate.issue_date|date:"Y年m月d日" }}</td>
+                        </tr>
+                        <tr>
+                            <th style="width: 35%;">有効期限</th>
+                            <td>{{ estimate.expiry_date|date:"Y年m月d日" }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <strong>見積項目</strong>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped align-middle">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40%;">項目</th>
+                                    <th style="width: 10%;" class="text-center">数量</th>
+                                    <th style="width: 15%;" class="text-end">単価</th>
+                                    <th style="width: 15%;" class="text-center">税率</th>
+                                    <th style="width: 20%;" class="text-end">金額</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in estimate.items.all %}
+                                <tr>
+                                    <td>
+                                        {{ item.name }}
+                                        {% if item.description %}
+                                        <div><small class="text-muted">{{ item.description }}</small></div>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">{{ item.quantity }}</td>
+                                    <td class="text-end">¥{{ item.unit_price|stringformat:"s"|slice:":-3" }},{{ item.unit_price|stringformat:"s"|slice:"-3:" }}</td>
+                                    <td class="text-center">{{ item.tax_rate }}%</td>
+                                    <td class="text-end">¥{{ item.subtotal|stringformat:"s"|slice:":-3" }},{{ item.subtotal|stringformat:"s"|slice:"-3:" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4" class="text-end">小計（税抜）</th>
+                                    <td class="text-end">¥{{ estimate.subtotal|stringformat:"s"|slice:":-3" }},{{ estimate.subtotal|stringformat:"s"|slice:"-3:" }}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" class="text-end">消費税</th>
+                                    <td class="text-end">¥{{ estimate.tax_amount|stringformat:"s"|slice:":-3" }},{{ estimate.tax_amount|stringformat:"s"|slice:"-3:" }}</td>
+                                </tr>
+                                <tr class="fw-bold">
+                                    <th colspan="4" class="text-end">合計（税込）</th>
+                                    <td class="text-end">¥{{ estimate.total|stringformat:"s"|slice:":-3" }},{{ estimate.total|stringformat:"s"|slice:"-3:" }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% if estimate.notes %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header bg-light">
+                    <strong>備考</strong>
+                </div>
+                <div class="card-body">
+                    {{ estimate.notes|linebreaks }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %} 

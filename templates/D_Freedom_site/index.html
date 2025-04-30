@@ -1,0 +1,98 @@
+{% extends 'D_Freedom_site/base.html' %}
+
+{% block title %}D.Freedom - 機械設計・CADモデリング専門 | AutoCAD・SolidWorks図面作成サービス{% endblock %}
+
+{% block meta_description %}D.Freedomは機械設計とCADモデリングを専門とする個人事業主です。AutoCAD・SolidWorksを使用した機械パーツの2D/3D図面作成と3Dプリント試作品製作を提供。製造業向けの高品質な設計サービスをご利用いただけます。{% endblock %}
+
+{% block og_title %}D.Freedom - 機械設計・CADモデリング専門 | AutoCAD・SolidWorks図面作成サービス{% endblock %}
+{% block og_description %}D.Freedomは機械設計とCADモデリングの専門家。AutoCAD・SolidWorksを使用した機械パーツの2D/3D図面作成と3Dプリント試作品製作を提供しています。{% endblock %}
+
+{% block twitter_title %}D.Freedom - 機械設計・CADモデリング専門 | AutoCAD・SolidWorks図面作成サービス{% endblock %}
+{% block twitter_description %}D.Freedomは機械設計とCADモデリングの専門家。AutoCAD・SolidWorksを使用した機械パーツの2D/3D図面作成と3Dプリント試作品製作を提供しています。{% endblock %}
+
+{% block content %}
+<div class="custom-jumbotron">
+    <h1 class="display-4">D.Freedomへようこそ</h1><br>
+    <p class="lead">自由なデザインで、あなたのビジョンを実現します。</p>
+    <hr class="my-4">
+    <p>当サイトでは、弊社のサービス内容や最新情報を提供しています。</p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h5">事業概要</h2>
+                <p class="card-text">
+                    D.Freedomは、機械設計とCADモデリングを専門とする個人事業主です。
+                    2DはAutoCAD、3DはSolidWorksを使用した機械パーツの図面作成と、3Dプリンタによる試作品製作を
+                    主なサービスとして提供しています。
+                </p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h5">自己紹介</h2>
+                <p class="card-text">
+                    代表の中村と申します。
+                    製造業での設計経験を活かし、CADを用いた機械パーツの2D&3Dの図面作成などを専門としています。
+                    お客様の要望に沿った精密なモデリングと、短納期での3Dプリント試作品の提供を心がけています。
+                </p>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title h5">最新のお知らせ</h2>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">2023年12月: 年末年始の営業時間について</li>
+                    <li class="list-group-item">2023年11月: 新サービス「3Dプリント試作品提供」開始のお知らせ</li>
+                    <li class="list-group-item">2023年10月: ウェブサイトリニューアルのお知らせ</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title h5">取扱内容</h2>
+                        <p class="card-text">機械設計・CADモデリングのサービス詳細をご覧いただけます。</p>
+                        <a href="{% url 'D_Freedom_site:service' %}" class="btn btn-primary">詳細を見る</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title h5">ブログ</h2>
+                        <p class="card-text">機械設計・CADモデリングに関する最新情報や役立つ記事を定期的に更新しています。</p>
+                        <a href="{% url 'D_Freedom_site:blog_list' %}" class="btn btn-primary">ブログを読む</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title h5">図面作成</h2>
+                        <p class="card-text">AutoCAD・SolidWorksを用いた機械パーツの2Dまたは3Dの図面作成をします。</p>
+                        <a href="{% url 'D_Freedom_site:drawing' %}" class="btn btn-primary">詳細を見る</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="card-title h5">3Dプリンタ試作品</h2>
+                        <p class="card-text">3Dプリンタによる試作品製作サービスをご提供します。</p>
+                        <a href="{% url 'D_Freedom_site:printing' %}" class="btn btn-primary">詳細を見る</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

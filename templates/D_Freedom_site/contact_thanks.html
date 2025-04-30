@@ -1,0 +1,36 @@
+{% extends 'D_Freedom_site/base.html' %}
+{% load static %}
+
+{% block title %}お問い合わせありがとうございます{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h2 class="h4 mb-0">お問い合わせを受け付けました</h2>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <img src="{% static 'media/check.png' %}" alt="完了" class="img-fluid" style="max-width: 100px;">
+                    </div>
+                    <p class="lead text-center">お問い合わせいただき、ありがとうございます。</p>
+                    <p>お送りいただいた内容を確認し、近日中にご連絡させていただきます。</p>
+                    <p>また、ご入力いただいたメールアドレス宛に自動返信メールをお送りしておりますので、ご確認ください。</p>
+                    <p class="mb-4">もしご不明な点がございましたら、お気軽にご連絡ください。</p>
+                    <div class="text-center mt-4">
+                        <a href="{% url 'D_Freedom_site:index' %}" class="btn btn-primary">
+                            トップページへ戻る
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+{% endblock %} 

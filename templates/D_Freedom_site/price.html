@@ -1,0 +1,59 @@
+{% extends 'D_Freedom_site/base.html' %}
+
+{% block title %}D.Freedom - 料金{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">料金</h1>
+
+{% if request.user.is_staff %}
+<div class="alert alert-info mb-4">
+    <p class="mb-0">
+        <strong>管理者向け:</strong> 見積書を作成するには<a href="{% url 'D_Freedom_site:admin_create_estimate' %}">こちら</a>をクリックしてください。
+    </p>
+</div>
+{% endif %}
+
+{% if prices %}
+    <div class="row">
+        {% for price_item in prices %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">{{ price_item.service_name }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title pricing-card-title">
+                            ¥{{ price_item.price|stringformat:"s"|slice:":-3" }},{{ price_item.price|stringformat:"s"|slice:"-3:" }}
+                            <small class="text-muted fw-light">（税別）</small>
+                        </h3>
+                        <p class="card-text mt-3">{{ price_item.description|linebreaks }}</p>
+                        {% if price_item.note %}
+                            <p class="card-text text-muted small">
+                                <strong>備考:</strong> {{ price_item.note }}
+                            </p>
+                        {% endif %}
+                        <a href="{% url 'Dfreedom_site:contact' %}" class="btn btn-outline-primary mt-3">お問い合わせ</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        現在、料金情報はありません。詳細については直接お問い合わせください。
+    </div>
+    <a href="{% url 'D_Freedom_site:contact' %}" class="btn btn-primary">お問い合わせ</a>
+{% endif %}
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">料金に関する注意事項</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">上記は基本料金です。プロジェクトの規模や複雑さによって変動する場合があります。</li>
+            <li class="list-group-item">料金はすべて税別表示です。</li>
+            <li class="list-group-item">お支払い方法は、銀行振込または各種クレジットカードがご利用いただけます。</li>
+            <li class="list-group-item">お見積りは無料です。お気軽にお問い合わせください。</li>
+        </ul>
+    </div>
+</div>
+{% endblock %} 

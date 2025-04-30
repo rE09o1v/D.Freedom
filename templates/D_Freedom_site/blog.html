@@ -1,0 +1,38 @@
+{% extends 'D_Freedom_site/base.html' %}
+{% load static %}
+
+{% block title %}ブログ{% endblock %}
+
+{% block content %}
+<div class="blog-content content-container scroll-fix">
+    <h1 class="mb-4">ブログ</h1>
+
+    {% if blogs %}
+        <div class="row">
+            {% for blog in blogs %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        {% if blog.image %}
+                            <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ blog.title }}</h5>
+                            <p class="card-text text-muted">
+                                <small>{{ blog.published_date|date:"Y年m月d日" }}</small>
+                            </p>
+                            <p class="card-text">{{ blog.content|truncatewords:30 }}</p>
+                            <div class="text-center">
+                                <a href="{% url 'D_Freedom_site:blog_detail' pk=blog.pk %}" class="btn btn-primary">続きを読む</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            まだブログ記事がありません。
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

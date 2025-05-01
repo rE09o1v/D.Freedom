@@ -22,7 +22,7 @@ ENV/
 local_settings.py
 
 # Djangoの静的ファイル（collectstaticで収集したもの）
-/static/
+/staticfiles/
 
 # ログファイル
 *.log

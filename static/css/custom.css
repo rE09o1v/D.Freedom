@@ -73,6 +73,7 @@ body {
     display: inline-block;
     padding: 0.5rem 1rem;
     border-radius: 8px;
+    color: #ffffff;
     background-color: rgba(26, 35, 126, 0.8);
     backdrop-filter: blur(10px);
     margin-bottom: 1rem;
